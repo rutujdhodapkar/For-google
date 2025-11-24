@@ -1,230 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For Google</title>
-
-<style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        background: #ffffff;
-        font-family: Arial, sans-serif;
-        width: 100vw;
-        min-height: 100vh;
-        height: 100%;
-        box-sizing: border-box;
-        overflow-x: hidden;
-    }
-
-    #intro-screen {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        background: #fff;
-        transition: opacity 1s ease-in-out;
-        z-index: 50;
-        pointer-events: auto;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    .text {
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-        position: absolute;
-        text-align: center;
-        width: 100%;
-        font-size: 2rem;
-        font-weight: bold;
-        color: #000;
-        left: 0;
-    }
-
-    .google-color span:nth-child(1){ color:#4285F4; }
-    .google-color span:nth-child(2){ color:#DB4437; }
-    .google-color span:nth-child(3){ color:#F4B400; }
-    .google-color span:nth-child(4){ color:#4285F4; }
-    .google-color span:nth-child(5){ color:#0F9D58; }
-    .google-color span:nth-child(6){ color:#DB4437; }
-
-    .scroll-track {
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 2px;
-        height: 200px;
-        background: #e0e0e0;
-        border-radius: 4px;
-        z-index: 60;
-        display: flex;
-        align-items: flex-start;
-    }
-
-    .scroll-thumb {
-        width: 10px;
-        height: 40px;
-        background: #303030;
-        border-radius: 4px;
-        position: absolute;
-        left: -4px;
-        top: 0;
-        transition: top 0.3s ease;
-        cursor: pointer;
-        box-shadow: 0 2px 6px #00000024;
-    }
-
-    #letter-screen {
-        position: static;
-        inset: 0;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 1.4s ease-in-out;
-        z-index: 10;
-        padding: 32px 0;
-        min-height: 100vh;
-        width: 100vw;
-        box-sizing: border-box;
-        overflow-y: auto;
-    }
-
-    .letter {
-        max-width: 560px;
-        width: 94vw;
-        letter-spacing: 0.04em;
-        line-height: 1.54;
-        white-space: pre-line;
-        text-align: left;
-        font-size: 1rem;
-        color: #000;
-        background: #fff;
-        padding: 18px 14px;
-        border-radius: 14px;
-        box-shadow: 0 8px 36px 0 #00000013;
-        margin: 0 auto;
-    }
-
-    @media (max-width: 530px) {
-        .scroll-track { 
-            display: none !important; 
-        }
-    }
-</style>
-</head>
-
-<body>
-
-<div id="intro-screen">
-    <div class="scroll-track"><div id="thumb" class="scroll-thumb"></div></div>
-
-    <div id="t1" class="text">
-        Dear <span class="google-color">
-            <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
-        </span>
-    </div>
-
-    <div id="t2" class="text"></div>
-    <div id="t3" class="text">You told me to show creativity</div>
-    <div id="t4" class="text">I asked myself, what kind of creative I am?</div>
-    <div id="t5" class="text">soo thats it, its just 0.00001% of my creativity</div>
-    <div id="t6" class="text">Also, i have written somethig for u:</div>
-</div>
-
-<div id="letter-screen">
-<div class="letter">
-Dear <span class="google-color">
-<span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
-</span>
-
-Alright, here’s my not-so-subtle attempt at joining your world. I’m applying for the Google Ambassador Program, and yeah, I also want you to look at me for your AI teams — because that’s literally the dream I’ve been grinding for.
-I’m Rutuj Dhodapkar, a young ML/DL researcher who codes like it’s oxygen. I work across Python, Java, R, JavaScript, mobile dev, big data… the whole buffet. I build systems end-to-end, I experiment like a maniac, and I don’t touch surface-level tech — I go full depth, neural-network-from-scratch depth.
-
-Your AI ecosystem is the one that pushed me into this field in the first place.
-So yeah… I’m shooting my shot. Take it or regret it later.
-Here’s my portfolio — everything I’ve built, broken, and rebuilt lives here:
-https://rutujdhodapkar.vercel.app/
-
-If you’re looking for someone who’s young, absurdly passionate, technical as hell, and kind of impossible to ignore… I’m exactly that.
-
-Sincerely
-Rutuj Dhodapkar
-rutujdhodapkar@gmail.com
-@rutujdhodapkar
-</div>
-</div>
-
-<script>
-    const h = new Date().getHours();
-    let greet = "Hello";
-    if (h < 12) greet = "Good morning";
-    else if (h < 18) greet = "Good afternoon";
-    else greet = "Good evening";
-    document.getElementById("t2").innerText = greet;
-
-    const t1 = document.getElementById("t1");
-    const t2 = document.getElementById("t2");
-    const t3 = document.getElementById("t3");
-    const t4 = document.getElementById("t4");
-    const t5 = document.getElementById("t5");
-    const thumb = document.getElementById("thumb");
-    const scrollTrack = document.querySelector(".scroll-track");
-
-    const texts = [t1, t2, t3, t4, t5];
-
-    let autoIndex = 0;
-
-    function showFrame(i){
-        texts.forEach((t,j)=> t.style.opacity = (i===j)?1:0 );
-        thumb.style.top = (i * 40) + "px";
-    }
-
-    showFrame(0);
-
-    const interval = setInterval(()=>{
-        autoIndex++;
-        if(autoIndex >= texts.length){
-            clearInterval(interval);
-            transitionToLetter();
-        } else {
-            showFrame(autoIndex);
-        }
-    }, 3000);
-
-    let scrollBlock = false;
-
-    function moveFrame(delta) {
-        if (scrollBlock) return;
-        scrollBlock = true;
-        autoIndex += delta;
-        if (autoIndex < 0) autoIndex = 0;
-        if (autoIndex >= texts.length) {
-            autoIndex = texts.length-1;
-            transitionToLetter();
-            return;
-        }
-        showFrame(autoIndex);
-        setTimeout(()=>{scrollBlock=false}, 320);
-    }
-
-    window.addEventListener('wheel', (e)=>{
-        if (document.getElementById("intro-screen").style.opacity === "" || document.getElementById("intro-screen").style.opacity === "1") {
-            if (e.deltaY > 0) moveFrame(1);
-            else if (e.deltaY < 0) moveFrame(-1);
-        }
-    });
-
-    window.addEventListener('keydown', (e)=>{
-        if (document.getElementById("intro-screen").style.opacity === "" || document.getElementById("intro-screen").style.opacity === "1") {
+intro-screen").style.opacity === "1") {
             if (e.key === "ArrowDown" || e.key === "PageDown") moveFrame(1);
             if (e.key === "ArrowUp" || e.key === "PageUp") moveFrame(-1);
         }
@@ -535,4 +309,277 @@ Rutuj Dhodapkar<br>
 </script>
 
 </body>
+</html>
+<!DOCTYPE html>    <html lang="en">    
+<head>    
+<meta charset="UTF-8" />    
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+<title>For Google</title>    <style>    
+    html, body {    
+        margin: 0;    
+        padding: 0;    
+        background: #ffffff;    
+        font-family: Arial, sans-serif;    
+    
+        width: 100vw;    
+        min-height: 100vh;    
+        height: 100%;    
+        box-sizing: border-box;    
+        overflow-x: hidden;    
+    }    
+    
+    #intro-screen {    
+        position: fixed;    
+        inset: 0;    
+        display: flex;    
+        justify-content: center;    
+        align-items: center;    
+        flex-direction: column;    
+        background: #fff;    
+        transition: opacity 1s ease-in-out;    
+        z-index: 50;    
+        pointer-events: auto;    
+        width: 100vw;    
+        height: 100vh;    
+        overflow: hidden;    
+    }    
+    
+    .text {    
+        opacity: 0;    
+        transition: opacity 1s ease-in-out;    
+        position: absolute;    
+        text-align: center;    
+        width: 100%;    
+        font-size: 2rem;    
+        font-weight: bold;    
+        color: #000;    
+        left: 0;    
+    }    
+    
+    .google-color span:nth-child(1){ color:#4285F4; }    
+    .google-color span:nth-child(2){ color:#DB4437; }    
+    .google-color span:nth-child(3){ color:#F4B400; }    
+    .google-color span:nth-child(4){ color:#4285F4; }    
+    .google-color span:nth-child(5){ color:#0F9D58; }    
+    .google-color span:nth-child(6){ color:#DB4437; }    
+    
+    .scroll-track {    
+        position: absolute;    
+        right: 20px;    
+        top: 50%;    
+        transform: translateY(-50%);    
+        width: 2px;    
+        height: 200px;    
+        background: #e0e0e0;    
+        border-radius: 4px;    
+        z-index: 60;    
+        display: flex;    
+        align-items: flex-start;    
+    }    
+    
+    .scroll-thumb {    
+        width: 10px;    
+        height: 40px;    
+        background: #303030;    
+        border-radius: 4px;    
+        position: absolute;    
+        left: -4px;    
+        top: 0;    
+        transition: top 0.3s ease;    
+        cursor: pointer;    
+        box-shadow: 0 2px 6px #00000024;    
+    }    
+    
+    #letter-screen {    
+        position: static;     
+        inset: 0;    
+        background: #fff;    
+        display: flex;    
+        align-items: center;    
+        justify-content: center;    
+        opacity: 0;    
+        pointer-events: none;    
+        transition: opacity 1.4s ease-in-out;    
+        z-index: 10;    
+        padding: 32px 0;    
+        min-height: 100vh;    
+        width: 100vw;    
+        box-sizing: border-box;    
+    }    
+    
+    .letter {    
+      max-width: 560px;    
+      width: 94vw;    
+      letter-spacing: 0.04em;    
+      line-height: 1.54;    
+      white-space: pre-line;    
+      text-align: left;    
+      font-size: 1rem;    
+      color: #000;    
+      background: #fff;    
+      box-sizing: border-box;    
+      padding: 18px 14px;    
+      border-radius: 14px;    
+      box-shadow: 0 8px 36px 0 #00000013;    
+      margin: 0 auto;    
+    }    
+    
+    #letter-screen {    
+      overflow-y: auto;    
+    }    
+    
+    @media (max-width: 530px) {    
+        .scroll-track {    
+            display: none !important;    
+        }    
+    }    
+</style>    </head>    <body>    <div id="intro-screen">    
+    <div class="scroll-track"><div id="thumb" class="scroll-thumb"></div></div>    <div id="t1" class="text">    
+    Dear <span class="google-color">    
+        <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>    
+    </span>    
+</div>    
+<div id="t2" class="text"></div>    
+<div id="t3" class="text">You told me to show creativity</div>    
+<div id="t4" class="text">I asked myself, what kind of creative I am?</div>    
+<div id="t5" class="text">soo thats it, its just 0.00001% of my creativity, Also, i have written somethig for u: </div>  
+
+</div>    <div id="letter-screen">    
+<div class="letter">    
+Dear <span class="google-color">    
+    <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>    
+</span>    Alright, here’s my not-so-subtle attempt at joining your world. I’m applying for the Google Ambassador Program, and yeah, I also want you to look at me for your AI teams — because that’s literally the dream I’ve been grinding for.
+I’m Rutuj Dhodapkar, a young ML/DL researcher who codes like it’s oxygen. I work across Python, Java, R, JavaScript, mobile dev, big data… the whole buffet. I build systems end-to-end, I experiment like a maniac, and I don’t touch surface-level tech — I go full depth, neural-network-from-scratch depth.
+
+Your AI ecosystem is the one that pushed me into this field in the first place.<br>
+So yeah… I’m shooting my shot. Take it or regret it later
+Here’s my portfolio — everything I’ve built, broken, and rebuilt lives here:<br>
+<a href="https://rutujdhodapkar.vercel.app/" target="_blank" style="color:#1a73e8; text-decoration:underline;">https://rutujdhodapkar.vercel.app/</a>
+If you’re looking for someone who’s young, absurdly passionate, technical as hell, and kind of impossible to ignore… I’m exactly that.
+Sincerely<br><br>
+Rutuj Dhodapkar<br>
+<a href="mailto:rutujdhodapkar@gmail.com" style="color:#1a73e8; text-decoration:underline;">rutujdhodapkar@gmail.com</a><br>
+@rutujdhodapkar
+
+</div>    
+</div>    <script>    
+    const h = new Date().getHours();    
+    let greet = "Hello";    
+    if (h < 12) greet = "Good morning";    
+    else if (h < 18) greet = "Good afternoon";    
+    else greet = "Good evening";    
+    document.getElementById("t2").innerText = greet;    
+    
+    const t1 = document.getElementById("t1");    
+    const t2 = document.getElementById("t2");    
+    const t3 = document.getElementById("t3");    
+    const t4 = document.getElementById("t4");    
+    const t5 = document.getElementById("t5");    
+    const thumb = document.getElementById("thumb");    
+    const scrollTrack = document.querySelector(".scroll-track");    
+    
+    const texts = [    
+        t1, t2, t3, t4, t5    
+    ];    
+    
+    let autoIndex = 0;    
+    
+    function showFrame(i){    
+        texts.forEach((t,j)=> t.style.opacity = (i===j)?1:0 );    
+        thumb.style.top = (i * 40) + "px";    
+    }    
+    
+    showFrame(0);    
+    
+    const interval = setInterval(()=>{    
+        autoIndex++;    
+        if(autoIndex >= texts.length){    
+            clearInterval(interval);    
+            transitionToLetter();    
+        } else {    
+            showFrame(autoIndex);    
+        }    
+    }, 3000);    
+    
+    let scrollBlock = false;    
+    
+    function moveFrame(delta) {    
+        if (scrollBlock) return;    
+        scrollBlock = true;    
+        autoIndex += delta;    
+        if (autoIndex < 0) autoIndex = 0;    
+        if (autoIndex >= texts.length) {    
+            autoIndex = texts.length-1;    
+            transitionToLetter();    
+            return;    
+        }    
+        showFrame(autoIndex);    
+        setTimeout(()=>{scrollBlock=false}, 320);    
+    }    
+    
+    window.addEventListener('wheel', (e)=>{    
+        if (document.getElementById("intro-screen").style.opacity === "" || document.getElementById("intro-screen").style.opacity === "1") {    
+            if (e.deltaY > 0) moveFrame(1);    
+            else if (e.deltaY < 0) moveFrame(-1);    
+        }    
+    });    
+    
+    window.addEventListener('keydown', (e)=>{    
+        if (document.getElementById("intro-screen").style.opacity === "" || document.getElementById("intro-screen").style.opacity === "1") {    
+            if (e.key === "ArrowDown" || e.key === "PageDown") moveFrame(1);    
+            if (e.key === "ArrowUp" || e.key === "PageUp") moveFrame(-1);    
+        }    
+    });    
+    
+    let isDragging = false;    
+    let dragStartY = 0;    
+    let dragStartIdx = 0;    
+    if(thumb && scrollTrack) {    
+        thumb.addEventListener('mousedown', function(e){    
+            isDragging = true;    
+            dragStartY = e.clientY;    
+            dragStartIdx = autoIndex;    
+            document.body.style.userSelect = "none";    
+        });    
+        document.addEventListener('mousemove', function(e){    
+            if (!isDragging) return;    
+            let dy = e.clientY - dragStartY;    
+            let idx = Math.round(dragStartIdx + dy/40);    
+            if (idx < 0) idx = 0;    
+            if (idx > texts.length-1) idx = texts.length-1;    
+            autoIndex = idx;    
+            showFrame(autoIndex);    
+        });    
+        document.addEventListener('mouseup', function(e){    
+            if (isDragging) {    
+                isDragging = false;    
+                document.body.style.userSelect = "";    
+                if (autoIndex >= texts.length-1) {    
+                    setTimeout(transitionToLetter, 240);    
+                }    
+            }    
+        });    
+    }    
+    
+    function transitionToLetter(){    
+        if (scrollTrack) scrollTrack.style.display = "none";    
+        document.getElementById("intro-screen").style.opacity = 0;    
+        setTimeout(()=>{    
+            document.getElementById("intro-screen").style.display = "none";    
+            const letter = document.getElementById("letter-screen");    
+            letter.style.opacity = 1;    
+            letter.style.pointerEvents = "auto";    
+            document.body.style.overflowY = "auto";    
+        }, 1200);    
+    }    
+    
+    window.addEventListener('resize', function() {    
+        const letterScreen = document.getElementById("letter-screen");    
+        if (letterScreen) {    
+            letterScreen.style.minHeight = window.innerHeight + "px";    
+        }    
+    });    
+    
+</script>    
+</body>    
 </html>
